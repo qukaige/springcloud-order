@@ -1,6 +1,6 @@
 package com.example.order.controller;
 
-import com.example.order.client.ProductClient;
+import com.example.product.client.ProductClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;

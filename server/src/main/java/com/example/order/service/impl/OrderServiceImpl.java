@@ -1,6 +1,5 @@
 package com.example.order.service.impl;
 
-import com.example.order.client.ProductClient;
 import com.example.order.dataobject.OrderDetail;
 import com.example.order.dataobject.OrderMaster;
 import com.example.order.dataobject.ProductInfo;
@@ -12,6 +11,9 @@ import com.example.order.repository.OrderDetailRepository;
 import com.example.order.repository.OrderMasterRepository;
 import com.example.order.service.OrderService;
 import com.example.order.utils.KeyUtil;
+import com.example.product.client.ProductClient;
+import com.example.product.common.DecreaseStockInput;
+import com.example.product.common.ProductInfoOutput;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,12 +47,12 @@ public class OrderServiceImpl implements OrderService {
                 .map(OrderDetail::getProductId)
                 .collect(Collectors.toList());
         log.info("查询商品信息(调用商品服务)");
-        List<ProductInfo> productInfoList = productClient.listForOrder(productIdList);
+        List<ProductInfoOutput> productInfoList = productClient.listForOrder(productIdList);
 
         //计算总价
         BigDecimal orderAmout = new BigDecimal(BigInteger.ZERO);
         for (OrderDetail orderDetail: orderDTO.getOrderDetailList()) {
-            for (ProductInfo productInfo: productInfoList) {
+            for (ProductInfoOutput productInfo: productInfoList) {
                 if (productInfo.getProductId().equals(orderDetail.getProductId())) {
                     //单价*数量
                     orderAmout = productInfo.getProductPrice()
@@ -65,8 +67,8 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         //扣库存(调用商品服务)
-        List<CartDTO> decreaseStockInputList = orderDTO.getOrderDetailList().stream()
-                .map(e -> new CartDTO(e.getProductId(), e.getProductQuantity()))
+        List<DecreaseStockInput> decreaseStockInputList = orderDTO.getOrderDetailList().stream()
+                .map(e -> new DecreaseStockInput(e.getProductId(), e.getProductQuantity()))
                 .collect(Collectors.toList());
         productClient.decreaseStock(decreaseStockInputList);
         //订单入库
