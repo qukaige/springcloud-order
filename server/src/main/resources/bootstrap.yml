@@ -1,12 +1,29 @@
 spring:
+  application:
+    name: ORDER
   cloud:
     config:
       discovery:
         enabled: true
         service-id: CONFIG
       profile: dev
-  application:
-    name: ORDER
+    stream:
+      bindings:
+        input:
+          destination: mymessage # 指定mq
+          group: order  # 所属组
+        output:
+          destination: mymessage
+          group: order  # 所属组
+          content-type: application/json  # 内容类型为json
+
+        input2:
+          destination: mymessage2 # 指定mq
+          group: order  # 所属组
+        output2:
+          destination: mymessage2
+          group: order  # 所属组
+          content-type: application/json  # 内容类型为json
 eureka:
    client:
      service-url:
