@@ -18,16 +18,16 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class StreamReceiver {
     // 接收字符串
-    /*@StreamListener(value = StreamClient.INPUT)
-    public void process(Object message) {
+    @StreamListener(value = StreamClient.INPUT)
+    public void process1(Object message) {
         log.info("StreamReceiver: {}", message);
-    }*/
+    }
 
    /**
      * 接收对象
      * @param message
      */
-    @StreamListener(value = StreamClient.INPUT)
+    /*@StreamListener(value = StreamClient.INPUT)
     @SendTo(value = StreamClient.INPUT2) // 接收成功后在回应一下
     public String process(OrderDTO message) {
         log.info("StreamReceiver: {}", message);
@@ -38,6 +38,6 @@ public class StreamReceiver {
     @StreamListener(value = StreamClient.INPUT2)
     public void process2(String message) {
         log.info("INPUT2, {}", message);
-    }
+    }*/
 
 }

@@ -21,15 +21,15 @@ public class SendMessageController {
     private StreamClient streamClient;
 
     // 发送字符串
-    /*@GetMapping("/sendMessage")
-    public void sendMessage() {
-        streamClient.output().send(MessageBuilder.withPayload("now " + new Date()).build());
-    }*/
+    @GetMapping("/sendMessage1")
+    public void sendMessage1() {
+        streamClient.output().send(MessageBuilder.withPayload("now " + new Date().toString()).build());
+    }
 
     /**
      * 发送对象
      */
-    @GetMapping("/sendMessage")
+    @GetMapping("/sendMessage2")
     public void sendMessage() {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setOrderId("123123123");

@@ -1,7 +1,9 @@
 package com.example.order.controller;
 
 import com.example.product.client.ProductClient;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,12 @@ import org.springframework.web.client.RestTemplate;
  */
 @RestController
 public class ClientServer {
+    @Value("${env}")
+    private String env;
+    @GetMapping("test")
+    public String test() {
+        return env;
+    }
 
     /*// 方式2
     @Autowired
