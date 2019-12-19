@@ -27,3 +27,16 @@ eureka:
    client:
      service-url:
        defaultZone: http://10.10.10.103:8761/eureka/
+hystrix:
+  command:
+    # 配置超时时间
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 1000
+    getProductInfoList: # 给方法名称单独添加超时时间
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000

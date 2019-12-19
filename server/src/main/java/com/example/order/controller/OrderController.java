@@ -36,7 +36,7 @@ public class OrderController {
      * 4. 扣库存(调用商品服务)
      * 5. 订单入库
      */
-    @CrossOrigin(allowCredentials = "*")
+    @CrossOrigin(allowCredentials = "true")
     @PostMapping("/create")
     public ResultVO<Map<String, String>> create(@Valid OrderForm orderForm,
                                                 BindingResult bindingResult) {
