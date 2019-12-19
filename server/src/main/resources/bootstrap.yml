@@ -1,6 +1,11 @@
 spring:
   application:
     name: ORDER
+  zipkin:
+    base-url: http://10.10.10.103:9411/ # zipkin url
+  sleuth:
+      sampler:
+        percentage: 1 # 所有数据都发送,默认是10% 0.1
   cloud:
     config:
       discovery:
@@ -40,3 +45,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 3000
+logging:
+  level:
+    org.springframework.cloud.netflix.feign: debug
